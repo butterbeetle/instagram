@@ -31,6 +31,13 @@ const menu = [
 export default function Navbar() {
   const pathName = usePathname();
   const { data: session } = useSession();
+
+  let signButton = session ? (
+    <ColorButton text="Sign out" onClick={() => signOut()} />
+  ) : (
+    <ColorButton text="Sign in" onClick={() => signIn()} />
+  );
+
   return (
     <div className="flex justify-between items-center px-6">
       <Link href="/">
@@ -45,11 +52,7 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
-          {session ? (
-            <ColorButton text="Sign out" onClick={() => signOut()} />
-          ) : (
-            <ColorButton text="Sign in" onClick={() => signIn()} />
-          )}
+          {signButton}
         </ul>
       </nav>
     </div>
