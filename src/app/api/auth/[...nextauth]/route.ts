@@ -10,6 +10,9 @@ export const authOptions = {
     }),
     // ...add more providers here
   ],
+  app: {
+    signIn: "/auth/signin",
+  },
 };
 
 const handler = NextAuth(authOptions);
