@@ -30,7 +30,7 @@ export default {
       of: [
         {
           type: 'reference',
-          to: [{type: 'post'}],
+          to: [{type: 'user'}],
         },
       ],
       validation: (Rule) => Rule.unique(),
@@ -42,7 +42,7 @@ export default {
       of: [
         {
           type: 'reference',
-          to: [{type: 'post'}],
+          to: [{type: 'user'}],
         },
       ],
       validation: (Rule) => Rule.unique(),
