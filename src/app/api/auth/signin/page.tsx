@@ -1,12 +1,12 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../[...nextauth]/route";
-import { redirect } from "next/navigation";
-import { getProviders } from "next-auth/react";
 import Signin from "@/components/Signin";
+import { getServerSession } from "next-auth";
+import { getProviders } from "next-auth/react";
+import { redirect } from "next/navigation";
+import { authOptions } from "../[...nextauth]/route";
 
 type Props = {
   searchParams: {
-    callbackUrl: "string";
+    callbackUrl: string;
   };
 };
 
