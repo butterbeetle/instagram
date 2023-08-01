@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={openSans.className}>
-      <body className="flex flex-col w-full max-w-screen-xl overflow-auto mx-auto">
+      <body className="w-full max-w-screen-xl overflow-auto mx-auto">
         <AuthContext>
           <header className="sticky top-0 bg-white z-10 border-b">
             <Navbar />
@@ -27,7 +27,6 @@ export default function RootLayout({
           <main className="w-full flex justify-center bg-neutral-50 min-h-full">
             <SWRConfigContext>{children}</SWRConfigContext>
           </main>
-          <footer>footer</footer>
         </AuthContext>
       </body>
     </html>
