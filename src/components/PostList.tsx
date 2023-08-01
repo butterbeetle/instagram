@@ -11,7 +11,7 @@ export default function PostList() {
   return (
     <section>
       {loading && (
-        <div>
+        <div className="text-center mt-32">
           <GridLoader color="red" />
         </div>
       )}
@@ -19,7 +19,7 @@ export default function PostList() {
         <ul>
           {posts &&
             posts.map((post) => (
-              <li key={post.id}>
+              <li className="mb-4" key={post.id}>
                 <PostListCard post={post} />
               </li>
             ))}
