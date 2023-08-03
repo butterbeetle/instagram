@@ -10,7 +10,7 @@ export default async function HomePage() {
   const user = session?.user;
 
   if (!user) {
-    redirect("/auth/signin");
+    redirect("/api/auth/signin");
   }
 
   return (
