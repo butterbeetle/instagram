@@ -13,6 +13,8 @@ export default function PostDetail({ post }: Props) {
   const { data } = useSWR<FullPost>(`/api/posts/${id}`);
   const comments = data?.comments;
 
+  const handlePostComment = (comment: string) => {};
+
   return (
     <section className="flex w-full h-full">
       <div className="relative basis-3/5">
@@ -46,7 +48,7 @@ export default function PostDetail({ post }: Props) {
             )}
         </ul>
         <ActionBar post={post} />
-        <CommentForm />
+        <CommentForm onPostComment={handlePostComment} />
       </div>
     </section>
   );
