@@ -56,14 +56,14 @@ export default {
     select: {
       title: 'comments.0.comment',
       authorName: 'author.name',
-      authorUserName: 'author.username',
+      authorUsername: 'author.username',
       media: 'photo',
     },
     prepare(selection) {
-      const {title, authorName, authorUserName, media} = selection
+      const {title, authorName, authorUsername, media} = selection
       return {
         title,
-        subtitle: `by ${authorName} (${authorUserName})`,
+        subtitle: `by ${authorName} (${authorUsername})`,
         media,
       }
     },

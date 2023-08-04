@@ -1,20 +1,14 @@
 "use client";
-import { HomeUser } from "@/model/user";
+
 import Link from "next/link";
 import { PropagateLoader } from "react-spinners";
-import useSWR from "swr";
 import Avatar from "./Avatar";
 import ScrollableBar from "./ui/ScrollableBar";
+import useMe from "@/hooks/me";
 
 export default function FollowingBar() {
-  const { data, isLoading: loading, error } = useSWR<HomeUser>("/api/me");
-  // const users = data?.following;
-  // const users = undefined;
-  const users = data?.following && [
-    ...data?.following,
-    ...data?.following,
-    ...data?.following,
-  ];
+  const { user, isLoading: loading, error } = useMe();
+  const users = user?.following;
   return (
     <section className="relative z-0 w-full flex justify-center items-center p-4 shadow-sm shadow-neutral-300 mb-4 rounded-lg min-h-[90px] overflow-x-auto">
       {loading ? (
