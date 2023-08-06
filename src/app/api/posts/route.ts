@@ -1,6 +1,4 @@
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
 import { createPost, getFollowingPostsOf } from "@/service/posts";
 import { withSessionUser } from "@/util/session";
 
