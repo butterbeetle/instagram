@@ -2,13 +2,8 @@ import GridSpinner from "./ui/GridSpinner";
 import PostGridCard from "./PostGridCard";
 import usePosts from "@/hooks/posts";
 
-type Props = {
-  username: string;
-  query: string;
-};
-export default function PostGrid({ username, query }: Props) {
-  const cacheKey = `/api/users/${username}/${query}`;
-  const { posts, isLoading } = usePosts(cacheKey);
+export default function PostGrid() {
+  const { posts, isLoading } = usePosts();
 
   return (
     <div className="w-full text-center">
@@ -17,11 +12,7 @@ export default function PostGrid({ username, query }: Props) {
         {posts &&
           posts.map((post, index) => (
             <li key={post.id}>
-              <PostGridCard
-                post={post}
-                priority={index < 6}
-                cacheKey={cacheKey}
-              />
+              <PostGridCard post={post} priority={index < 6} />
             </li>
           ))}
       </ul>
