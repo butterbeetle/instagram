@@ -10,7 +10,7 @@ export async function middleware(req: NextRequest) {
     }
 
     const { pathname, search, origin, basePath } = req.nextUrl;
-    const signInUrl = new URL(`${basePath}/auth/signin`, origin);
+    const signInUrl = new URL(`${basePath}/api/auth/signin`, origin);
     signInUrl.searchParams.append(
       "callbackUrl",
       `${basePath}${pathname}${search}`
