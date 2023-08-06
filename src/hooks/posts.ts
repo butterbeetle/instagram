@@ -1,5 +1,5 @@
 import { Comment, SimplePost } from "@/model/post";
-import { useCallback } from "react";
+import { cache, useCallback } from "react";
 import useSWR from "swr";
 
 async function updateLike(id: string, like: boolean) {
@@ -16,13 +16,13 @@ async function addComment(id: string, comment: string) {
   }).then((res) => res.json());
 }
 
-export default function usePosts() {
+export default function usePosts(cacheKey: string = "/api/posts") {
   const {
     data: posts,
     isLoading,
     error,
     mutate,
-  } = useSWR<SimplePost[]>("/api/posts");
+  } = useSWR<SimplePost[]>(cacheKey);
 
   const setLike = useCallback(
     (post: SimplePost, username: string, like: boolean) => {
