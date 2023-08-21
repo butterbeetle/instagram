@@ -47,7 +47,7 @@ export default function UserProfile({ user }: Props) {
             {info.map(({ title, data }, index) => (
               <li
                 className="flex flex-col md:flex-row justify-center items-center basis-1/3 md:mr-2 rounded-md py-2 hover:bg-neutral-100
-                md:hover:bg-inherit"
+                md:hover:bg-inherit select-none"
                 key={index}
               >
                 {title}
