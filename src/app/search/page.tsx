@@ -4,9 +4,10 @@ import { Metadata } from "next";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "User Search",
+  title: "Serach User",
   description: "Search users to follow",
 };
+
 export default function SearchPage() {
   return <UserSearch />;
 }

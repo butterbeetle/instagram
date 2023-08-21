@@ -40,7 +40,7 @@ export default function useMe() {
     [user, mutate]
   );
 
-  const toglleFollow = useCallback(
+  const toggleFollow = useCallback(
     (targetId: string, follow: boolean) => {
       return mutate(updateFollow(targetId, follow), {
         populateCache: false,
@@ -49,5 +49,5 @@ export default function useMe() {
     [mutate]
   );
 
-  return { user, isLoading, error, setBookmark, toglleFollow };
+  return { user, isLoading, error, setBookmark, toggleFollow };
 }

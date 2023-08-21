@@ -1,24 +1,30 @@
-import { SearchUser } from "@/model/user";
-import Link from "next/link";
+import { ProfileUser } from "@/model/user";
 import Avatar from "./Avatar";
+import Link from "next/link";
+import FollowButton from "./ui/FollowButton";
 
 type Props = {
-  user: SearchUser;
+  user: ProfileUser;
 };
-export default function UserCard({
-  user: { name, username, image, following, followers },
-}: Props) {
+export default function UserCard({ user }: Props) {
+  const { username, name, image, following, followers } = user;
+
+  console.log(username, user);
   return (
-    <Link
-      className="flex items-center w-full rounded-sm border-neutral-300 mb-2 p-4 bg-white hover:bg-neutral-50"
-      href={`/user/${username}`}
-    >
-      <Avatar image={image} />
-      <div className="text-neutral-500">
-        <p className="text-black font-bold leading-4">{username}</p>
-        <p>{name}</p>
-        <p className="text-sm leading-4">{`${followers} followers ${following} following`}</p>
-      </div>
-    </Link>
+    <div className="w-full flex justify-between items-center mb-2 p-2 border bg-white border-neutral-100 hover:bg-gray-50 rounded-md shadow-md">
+      <Link href={`/user/${username}`}>
+        <div className="flex items-center">
+          <Avatar image={image} size="md" />
+          <div className="w-full flex justify-between items-center">
+            <div className="flex flex-col justify-center items-start ml-2">
+              <p className="font-bold text-sm">{username}</p>
+              <p className="text-gray-500 text-sm">{name}</p>
+              <p className="text-gray-500 text-xs">{`${following} following ${followers} followers`}</p>
+            </div>
+          </div>
+        </div>
+      </Link>
+      <FollowButton user={user} />
+    </div>
   );
 }

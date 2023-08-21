@@ -1,27 +1,26 @@
 "use client";
 
 import PostListCard from "./PostListCard";
-import GridSpinner from "./ui/GridSpinner";
+import PuffSpinner from "./ui/PuffSpinner";
 import usePosts from "@/hooks/posts";
 
 export default function PostList() {
-  const { posts, isLoading: loading } = usePosts();
+  const { posts, isLoading } = usePosts();
 
   return (
     <section>
-      {loading && (
-        <div className="text-center mt-32">
-          <GridSpinner color="red" />
+      {isLoading && (
+        <div className="mt-32 flex justify-center">
+          <PuffSpinner />
         </div>
       )}
       {posts && (
         <ul>
-          {posts &&
-            posts.map((post, index) => (
-              <li className="mb-4" key={post.id}>
-                <PostListCard post={post} priority={index < 2} />
-              </li>
-            ))}
+          {posts.map((post, index) => (
+            <li className="mb-4" key={post.id}>
+              <PostListCard post={post} priority={index < 2} />
+            </li>
+          ))}
         </ul>
       )}
     </section>

@@ -1,6 +1,7 @@
-import { addUser } from "@/service/user";
+import { createUser } from "@/service/user";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import KakaoProvider from "next-auth/providers/kakao";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -8,29 +9,22 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_OAUTH_ID || "",
       clientSecret: process.env.GOOGLE_OAUTH_SECRET || "",
     }),
+    KakaoProvider({
+      clientId: process.env.KAKAO_CLIENT_ID || "",
+      clientSecret: process.env.KAKAO_CLIENT_SECRET || "",
+    }),
   ],
   callbacks: {
-    async signIn({ user: { id, name, image, email } }) {
+    async signIn({ user: { id, name, email, image } }) {
       if (!email) return false;
-      addUser({
+      createUser({
         id,
+        username: email?.split("@")[0],
         name: name || "",
-        email,
+        email: email,
         image,
-        username: email.split("@")[0],
       });
       return true;
-    },
-    async session({ session, token }) {
-      const user = session?.user;
-      if (user) {
-        session.user = {
-          ...user,
-          username: user.email?.split("@")[0] || ",",
-          id: token.id as string,
-        };
-      }
-      return session;
     },
     async jwt({ token, user }) {
       if (user) {
@@ -38,9 +32,22 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
+    async session({ session, token }) {
+      const user = session?.user;
+
+      if (user) {
+        session.user = {
+          ...user,
+          id: token.id as string,
+          username: user.email?.split("@")[0] ?? " ",
+        };
+      }
+
+      return session;
+    },
   },
   app: {
-    signIn: "/api/auth/signinn",
+    signIn: "/api/auth/signin",
   },
 };
 

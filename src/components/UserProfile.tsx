@@ -1,6 +1,7 @@
 import { ProfileUser } from "@/model/user";
 import Avatar from "./Avatar";
-import FollowButton from "./FollowButton";
+import FollowButton from "./ui/FollowButton";
+import BackButton from "./ui/BackButton";
 
 type Props = {
   user: ProfileUser;
@@ -22,22 +23,42 @@ export default function UserProfile({ user }: Props) {
     },
   ];
   return (
-    <section className="w-full flex flex-col md:flex-row items-center justify-center py-12 border-b border-neutral-300">
-      <Avatar image={image} highlight size="xlarge" />
-      <div className="md:ml-10 basis-1/3">
-        <div className="flex flex-col md:flex-row items-center">
-          <h1 className="text-2xl md:mr-8 my-2 md:mb-0">{username}</h1>
-          <FollowButton user={user} />
+    <section className="w-full">
+      <header className="relative border-b border-neutral-200 text-center py-2 md:hidden">
+        <BackButton />
+        <p className="font-bold">{username}</p>
+      </header>
+      <div className="w-full flex flex-col md:flex-row items-center justify-center pt-6">
+        <div className="inline md:hidden">
+          <Avatar image={image} size="lg" highlight />
         </div>
-        <ul className="my-4 flex gap-4">
-          {info.map(({ title, data }, index) => (
-            <li key={index}>
-              <span className="font-bold mr-1">{data}</span>
-              {title}
-            </li>
-          ))}
-        </ul>
-        <p className="text-xl font-bold text-center md:text-start">{name}</p>
+        <div className="hidden md:inline">
+          <Avatar image={image} size="xl" highlight />
+        </div>
+        <div className="w-full border-b md:w-auto md:ml-6 md:border-none">
+          <div className="flex flex-col md:flex-row items-center ">
+            <p className="mb-2 md:mr-6">{username}</p>
+            <FollowButton user={user} />
+          </div>
+          <p className="my-2 font-bold mb-4 text-sm text-center block md:hidden">
+            {name}
+          </p>
+          <ul className="w-full border-t md:border-none flex  justify-center">
+            {info.map(({ title, data }, index) => (
+              <li
+                className="flex flex-col md:flex-row justify-center items-center basis-1/3 md:mr-2 rounded-md py-2 hover:bg-neutral-100
+                md:hover:bg-inherit"
+                key={index}
+              >
+                {title}
+                <span className="font-bold text-sm md:text-base md:ml-1">
+                  {data}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p className="my-2 font-bold text-sm hidden md:block">{name}</p>
+        </div>
       </div>
     </section>
   );

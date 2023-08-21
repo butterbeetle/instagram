@@ -6,7 +6,7 @@ import Button from "./ui/Button";
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import GridSpinner from "./ui/GridSpinner";
+import PuffSpinner from "./ui/PuffSpinner";
 
 type Props = {
   user: AuthUser;
@@ -15,9 +15,10 @@ export default function NewPost({ user: { username, image } }: Props) {
   const [dragging, setDragging] = useState<boolean>(false);
   const [file, setFile] = useState<File>();
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>();
-  const textRef = useRef<HTMLTextAreaElement>(null);
+  const [error, setError] = useState<string>("");
+
   const router = useRouter();
+  const textRef = useRef<HTMLTextAreaElement>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -26,6 +27,7 @@ export default function NewPost({ user: { username, image } }: Props) {
       setFile(files[0]);
     }
   };
+
   const handleDrag = (e: React.DragEvent) => {
     if (e.type === "dragenter") {
       setDragging(true);
@@ -56,23 +58,23 @@ export default function NewPost({ user: { username, image } }: Props) {
     formData.append("file", file);
     formData.append("text", textRef.current?.value ?? "");
 
-    fetch("/api/posts/", { method: "POST", body: formData }) //
+    fetch(`/api/posts/`, { method: "POST", body: formData }) //
       .then((res) => {
         if (!res.ok) {
           setError(`${res.status} ${res.statusText}`);
           return;
         }
-
-        router.push("/");
+        router.push(`/`);
       })
       .catch((err) => setError(err.toString()))
       .finally(() => setLoading(false));
   };
+
   return (
-    <section className="w-full max-w-xl flex flex-col items-center mt-6">
+    <section className="w-full max-w-xl flex flex-col items-center mt-6 mx-auto">
       {loading && (
-        <div className="absolute inset-0 z-20 text-center pt-[30%] bg-sky-500/20">
-          <GridSpinner />
+        <div className="absolute inset-0 z-20 flex justify-center pt-[30%] bg-sky-500/20">
+          <PuffSpinner />
         </div>
       )}
       {error && (
@@ -91,9 +93,8 @@ export default function NewPost({ user: { username, image } }: Props) {
           onChange={handleChange}
         />
         <label
-          className={`w-full h-60 flex flex-col items-center justify-center ${
-            !file && "border-2 border-sky-500 border-dashed"
-          }`}
+          className={`w-full h-60 flex flex-col items-center justify-center
+          ${!file && "border-4 border-sky-500 border-dashed"}`}
           htmlFor="input-upload"
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
@@ -110,27 +111,27 @@ export default function NewPost({ user: { username, image } }: Props) {
             </div>
           )}
           {file && (
-            <div className="relative w-full aspect-square">
+            <div className="relative w-full  aspect-square">
               <Image
                 className="object-cover"
                 src={URL.createObjectURL(file)}
                 alt="local file"
-                fill
                 sizes="650px"
+                fill
               />
             </div>
           )}
         </label>
         <textarea
-          className="outline-none text-lg border border-neutral-300 resize-none"
+          className="resize-none text-lg border border-neutral-300 outline-none"
           name="text"
           id="input-text"
           rows={10}
+          placeholder={"내용을 입력해주세요."}
           required
-          placeholder="Write a caption..."
           ref={textRef}
-        />
-        <Button text="Pubilsh" onClick={() => {}} />
+        ></textarea>
+        <Button text="Publish" onClick={() => {}} />
       </form>
     </section>
   );

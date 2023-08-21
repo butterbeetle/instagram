@@ -18,21 +18,19 @@ export default function PostListCard({ post, priority = false }: Props) {
   const { userImage, username, image, comments, text } = post;
   const [openModal, setOpenModal] = useState(false);
   const { postComment } = usePosts();
-
   const handlePostComment = (comment: Comment) => {
     postComment(post, comment);
   };
-
   return (
-    <article className="rounded-lg shadow-md border-gray-200">
+    <article className="rounded-lg shadow-md border border-gray-200">
       <PostUserAvatar image={userImage} username={username} />
       <Image
-        priority={priority}
         className="w-full object-cover aspect-square"
         src={image}
         alt={`photo by ${username}`}
         width={500}
         height={500}
+        priority={priority}
         onClick={() => setOpenModal(true)}
       />
       <ActionBar post={post} onComment={handlePostComment}>

@@ -1,18 +1,19 @@
+import Header from "@/components/Header";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
-import Navbar from "@/components/Navbar";
-import AuthContext from "@/context/AuthContext";
-import SWRConfigContext from "@/context/SWRconfigContext";
+import Footer from "@/components/Footer";
+import NextAuthContext from "@/context/NextAuthContext";
+import SWRConfigContext from "@/context/SWRConfigContext";
 
-const openSans = Open_Sans({ subsets: ["latin"] });
+const sans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "Instagram",
-    template: "Instagram | %s",
+    default: "Instagram Clone Coding",
+    template: "Instagram Clone Coding | %s",
   },
-  description: "Instagram Photos",
+  description: "Instagram Clone Coding HomePage, Not a real website",
 };
 
 export default function RootLayout({
@@ -21,18 +22,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={openSans.className}>
-      <body className="w-full  overflow-auto bg-neutral-50">
-        <AuthContext>
-          <header className="sticky top-0 bg-white z-10 border-b">
-            <div className="max-w-screen-xl mx-auto">
-              <Navbar />
-            </div>
-          </header>
-          <main className="w-full flex justify-center max-w-screen-xl mx-auto">
+    <html lang="en" className={sans.className}>
+      <body className="relative w-full flex flex-col md:flex-row md:h-full overflow-auto bg-neutral-50">
+        <NextAuthContext>
+          <Header />
+          <main className="w-full h-full overflow-x-hidden mx-auto ">
             <SWRConfigContext>{children}</SWRConfigContext>
           </main>
-        </AuthContext>
+          <Footer />
+        </NextAuthContext>
         <div id="portal" />
       </body>
     </html>

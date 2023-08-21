@@ -1,9 +1,9 @@
-import Signin from "@/components/Signin";
 import { getServerSession } from "next-auth";
-import { getProviders } from "next-auth/react";
-import { redirect } from "next/navigation";
 import { authOptions } from "../[...nextauth]/route";
+import { redirect } from "next/navigation";
+import { getProviders } from "next-auth/react";
 import { Metadata } from "next";
+import Signin from "@/components/Signin";
 
 export const metadata: Metadata = {
   title: "Signin",
@@ -28,7 +28,7 @@ export default async function SignPage({
   const providers = (await getProviders()) ?? {};
 
   return (
-    <section className="flex justify-center mt-24">
+    <section className="flex flex-col items-center justify-center my-24 mx-auto gap-4">
       <Signin providers={providers} callbackUrl={callbackUrl ?? "/"} />
     </section>
   );

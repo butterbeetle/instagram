@@ -1,4 +1,5 @@
 "use client";
+
 import { SimplePost } from "@/model/post";
 import Image from "next/image";
 import { useState } from "react";
@@ -11,11 +12,11 @@ type Props = {
   post: SimplePost;
   priority: boolean;
 };
+
 export default function PostGridCard({ post, priority = false }: Props) {
   const [openModal, setOpenModal] = useState(false);
   const { image, username } = post;
   const { data: session } = useSession();
-
   const handleOpenPost = () => {
     if (!session?.user) {
       return signIn();
@@ -25,7 +26,7 @@ export default function PostGridCard({ post, priority = false }: Props) {
   return (
     <div className="relative w-full aspect-square">
       <Image
-        className="object-cover cursor-pointer"
+        className="object-cover"
         src={image}
         alt={`photo by ${username}`}
         fill

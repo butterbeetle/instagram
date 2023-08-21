@@ -1,5 +1,5 @@
-import { FaRegSmile } from "react-icons/fa";
+import { CgSmileMouthOpen } from "react-icons/cg";
 
 export default function SmileIcon() {
-  return <FaRegSmile className="w-7 h-7" />;
+  return <CgSmileMouthOpen className="w-7 h-7" />;
 }

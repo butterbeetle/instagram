@@ -1,5 +1,7 @@
+import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+
 const responsive = {
   desk: {
     breakpoint: { max: 4000, min: 576 },
@@ -11,13 +13,12 @@ const responsive = {
   },
 };
 
-export default function ScrollableBar({
-  children,
-}: {
+type Props = {
   children: React.ReactNode;
-}) {
+};
+export default function ScrollBar({ children }: Props) {
   return (
-    <Carousel containerClass="w-full flex gap-2" responsive={responsive}>
+    <Carousel containerClass="w-full flex" responsive={responsive}>
       {children}
     </Carousel>
   );

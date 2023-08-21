@@ -1,3 +1,5 @@
+"use client";
+
 import { SimplePost } from "@/model/post";
 import Image from "next/image";
 import PostUserAvatar from "./PostUserAvatar";
@@ -10,13 +12,13 @@ type Props = {
 };
 
 export default function PostDetail({ post }: Props) {
-  const { id, userImage, username, image } = post;
+  const { id, username, userImage, image } = post;
   const { post: data, postComment } = useFullPost(id);
   const comments = data?.comments;
 
   return (
-    <section className="flex w-full h-full">
-      <div className="relative basis-3/5">
+    <section className="flex w-full h-full ">
+      <div className="relative basis-3/5 hidden md:inline-block">
         <Image
           className="object-cover"
           src={image}
@@ -26,21 +28,33 @@ export default function PostDetail({ post }: Props) {
           sizes="650px"
         />
       </div>
-      <div className="w-full basis-2/5 flex flex-col">
+      <div className="w-full md:basis-2/5 flex flex-col">
         <PostUserAvatar image={userImage} username={username} />
-        <ul className="border-t border-gray-200 h-full overflow-y-auto p-4 mb-1">
+        <Image
+          className="border-y md:hidden md:border-none h-auto w-full"
+          src={image}
+          alt={`photo by ${username}`}
+          priority
+          sizes="100vw"
+          width={0}
+          height={0}
+        />
+        <ul className="border-t border-gray-200 h-full overflow-y-auto p-4 mb-1 hidden md:inline-block">
           {comments &&
             comments.map(
-              ({ image, username: commentUsername, comment }, index) => (
+              (
+                { image, username: commentUsername, comment: message },
+                index
+              ) => (
                 <li className="flex items-center mb-1" key={index}>
                   <Avatar
                     image={image}
-                    size="small"
+                    size="sm"
                     highlight={commentUsername === username}
                   />
-                  <div className="flex flex-col ml-2 md:inline">
+                  <div>
                     <span className="font-bold mr-1">{commentUsername}</span>
-                    <span>{comment}</span>
+                    <span>{message}</span>
                   </div>
                 </li>
               )

@@ -1,4 +1,4 @@
-type AvatarSize = "small" | "medium" | "large" | "xlarge";
+type AvatarSize = "sm" | "md" | "lg" | "xl";
 
 type Props = {
   image?: string | null;
@@ -8,15 +8,14 @@ type Props = {
 
 export default function Avatar({
   image,
-  size = "large",
+  size = "sm",
   highlight = false,
 }: Props) {
   return (
-    <div className={getContainerStyle(size, highlight)}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
+    <div className={`${getContainerSizeStyle(size, highlight)} `}>
+      {/* eslint-disable-next-line @next/next/no-img-element*/}
       <img
-        className={`bg-white object-cover rounded-full p-[0.1rem] 
-        ${getImageSizeStyle(size).image}`}
+        className={`${getImageSizeStyle(size)}`}
         alt="user profile"
         src={image ?? undefined}
         referrerPolicy="no-referrer"
@@ -25,37 +24,49 @@ export default function Avatar({
   );
 }
 
-function getContainerStyle(size: AvatarSize, highright: boolean): string {
+const getContainerSizeStyle = (
+  size: AvatarSize,
+  highlight: boolean
+): string => {
   const baseStyle = "rounded-full flex shrink-0 justify-center items-center";
-  const highlightStyle = highright
+  const { container } = getSizeStyleBy(size);
+  const highlightStyle = highlight
     ? "bg-gradient-to-bl from-fuchsia-600 via-rose-500 to-amber-300"
     : "";
-  const { container } = getImageSizeStyle(size);
+
   return `${baseStyle} ${highlightStyle} ${container}`;
-}
+};
+
+const getImageSizeStyle = (size: AvatarSize): string => {
+  const baseStyle = "bg-white object-cover rounded-full p-[0.1rem] ";
+  const { image } = getSizeStyleBy(size);
+
+  return `${baseStyle} ${image}`;
+};
 
 type ImageSizeStyle = {
   container: string;
   image: string;
 };
-function getImageSizeStyle(size: AvatarSize): ImageSizeStyle {
+
+const getSizeStyleBy = (size: AvatarSize): ImageSizeStyle => {
   switch (size) {
-    case "small":
+    case "sm":
       return {
-        container: "w-9 h-9",
-        image: "w-[34px] h-[34px] p-[0.1rem]",
+        container: "w-7 h-7",
+        image: "w-[30px] h-[30px] p-[0.1rem]",
       };
-    case "medium":
+    case "md":
       return {
         container: "w-11 h-11",
         image: "w-[42px] h-[42px] p-[0.1rem]",
       };
-    case "large":
+    case "lg":
       return {
         container: "w-[68px] h-[68px]",
         image: "w-16 h-16 p-[0.2rem]",
       };
-    case "xlarge":
+    case "xl":
       return {
         container: "w-[142px] h-[142px]",
         image: "w-[138px] h-[138px] p-[0.3rem]",
@@ -63,4 +74,4 @@ function getImageSizeStyle(size: AvatarSize): ImageSizeStyle {
     default:
       throw new Error(`Unsupported type size: ${size}`);
   }
-}
+};

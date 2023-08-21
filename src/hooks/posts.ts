@@ -1,6 +1,6 @@
 import { useCacheKeys } from "@/context/CacheKeysContext";
 import { Comment, SimplePost } from "@/model/post";
-import { cache, useCallback } from "react";
+import { useCallback } from "react";
 import useSWR from "swr";
 
 async function updateLike(id: string, like: boolean) {

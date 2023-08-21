@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+"use client";
+import { parseDate } from "@/util/date";
 import BookmarkIcon from "./ui/icons/BookmarkIcon";
 import HeartIcon from "./ui/icons/HeartIcon";
-import { parseDate } from "@/util/date";
 import ToggleButton from "./ui/ToggleButton";
 import HeartFillIcon from "./ui/icons/HeartFillIcon";
 import BookmarkFillIcon from "./ui/icons/BookmarkFillIcon";
 import { Comment, SimplePost } from "@/model/post";
 import usePosts from "@/hooks/posts";
 import useMe from "@/hooks/me";
+import React from "react";
 import CommentForm from "./CommentForm";
 
 type Props = {
@@ -15,7 +16,6 @@ type Props = {
   children?: React.ReactNode;
   onComment: (comment: Comment) => void;
 };
-
 export default function ActionBar({ post, children, onComment }: Props) {
   const { id, likes, createdAt } = post;
   const { user, setBookmark } = useMe();
@@ -33,23 +33,22 @@ export default function ActionBar({ post, children, onComment }: Props) {
   const handleComment = (comment: string) => {
     user &&
       onComment({
-        comment,
+        comment: comment,
         username: user.username,
         image: user.image,
       });
   };
+
   return (
     <>
       <div className="flex justify-between my-2 px-4">
         <ToggleButton
-          title={liked ? "unlike" : "like"}
           toggled={liked}
           onToggle={handleLike}
           onIcon={<HeartFillIcon />}
           offIcon={<HeartIcon />}
         />
         <ToggleButton
-          title={bookmarked ? "unbookmark" : "bookmark"}
           toggled={bookmarked}
           onToggle={handleBookmark}
           onIcon={<BookmarkFillIcon />}
@@ -65,7 +64,9 @@ export default function ActionBar({ post, children, onComment }: Props) {
           {parseDate(createdAt)}
         </p>
       </div>
-      <CommentForm onPostComment={handleComment} />
+      <div className="w-full hidden md:inline-block">
+        <CommentForm onPostComment={handleComment} />
+      </div>
     </>
   );
 }

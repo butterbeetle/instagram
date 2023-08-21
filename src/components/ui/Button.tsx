@@ -1,24 +1,25 @@
 type Props = {
   text: string;
   onClick: () => void;
-  red?: boolean;
+  gray?: boolean;
   disabled?: boolean;
 };
 export default function Button({
   text,
   onClick,
-  red,
+  gray = false,
   disabled = false,
 }: Props) {
   return (
     <button
-      className={`border-none rounded-md py-2 px-8 text-white font-bold leading-4 ${
-        red ? "bg-red-500" : "bg-sky-500"
-      } ${disabled && "opacity-80"}`}
+      className={`border-none py-2 px-4 rounded-md text-white text-sm font-bold leading-4 
+    ${
+      gray ? "bg-gray-100 hover:bg-gray-200" : "bg-sky-500 hover:bg-blue-500"
+    } ${disabled && "opacity-80"}`}
       onClick={() => onClick()}
       disabled={disabled}
     >
-      {text}
+      <p className={`${gray ? "text-black" : "text-white"}`}>{text}</p>
     </button>
   );
 }
