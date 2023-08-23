@@ -2,7 +2,7 @@ import { ProfileUser } from "@/model/user";
 import Avatar from "./Avatar";
 import FollowButton from "./ui/FollowButton";
 import BackButton from "./ui/BackButton";
-import OpenFollow from "./OpenFollow";
+import FollowDetail from "./FollowDetail";
 
 type Props = {
   user: ProfileUser;
@@ -51,7 +51,7 @@ export default function UserProfile({ user }: Props) {
                 md:hover:bg-inherit select-none hover:cursor-pointer"
                 key={title}
               >
-                <OpenFollow
+                <FollowDetail
                   title={title}
                   data={data}
                   disabled={title === "posts"}

@@ -11,7 +11,7 @@ type Props = {
   data: number;
   disabled: boolean;
 };
-export default function OpenFollow({ title, data, disabled }: Props) {
+export default function FollowDetail({ title, data, disabled }: Props) {
   const [openModal, setOpenModal] = useState(false);
   const { user: users } = useMe();
   const info = title === "following" ? users?.following : users?.followers;
