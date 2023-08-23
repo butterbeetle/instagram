@@ -9,7 +9,6 @@ type Props = {
 export default function UserCard({ user }: Props) {
   const { username, name, image, following, followers } = user;
 
-  console.log(username, user);
   return (
     <div className="w-full flex justify-between items-center mb-2 p-2 border bg-white border-neutral-100 hover:bg-gray-50 rounded-md shadow-md">
       <Link href={`/user/${username}`}>

@@ -30,11 +30,13 @@ export async function getUserByUsername(username: string) {
       "id":_id,
       following[]->{
         username,
-        image
+        image,
+        name,
       },
       followers[]->{
         username,
-        image
+        image,
+        name,
       },
       "bookmarks":bookmarks[]->_id
     }`

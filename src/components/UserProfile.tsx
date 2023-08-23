@@ -2,6 +2,7 @@ import { ProfileUser } from "@/model/user";
 import Avatar from "./Avatar";
 import FollowButton from "./ui/FollowButton";
 import BackButton from "./ui/BackButton";
+import OpenFollow from "./OpenFollow";
 
 type Props = {
   user: ProfileUser;
@@ -35,7 +36,7 @@ export default function UserProfile({ user }: Props) {
         <div className="hidden md:inline">
           <Avatar image={image} size="xl" highlight />
         </div>
-        <div className="w-full border-b md:w-auto md:ml-6 md:border-none">
+        <div className="w-full border-b md:w-auto md:ml-8 md:border-none">
           <div className="flex flex-col md:flex-row items-center ">
             <p className="mb-2 md:mr-6">{username}</p>
             <FollowButton user={user} />
@@ -44,16 +45,17 @@ export default function UserProfile({ user }: Props) {
             {name}
           </p>
           <ul className="w-full border-t md:border-none flex  justify-center">
-            {info.map(({ title, data }, index) => (
+            {info.map(({ title, data }) => (
               <li
-                className="flex flex-col md:flex-row justify-center items-center basis-1/3 md:mr-2 rounded-md py-2 hover:bg-neutral-100
-                md:hover:bg-inherit select-none"
-                key={index}
+                className="flex justify-center items-center basis-1/3 md:mr-8 rounded-md py-2 hover:bg-neutral-100
+                md:hover:bg-inherit select-none hover:cursor-pointer"
+                key={title}
               >
-                {title}
-                <span className="font-bold text-sm md:text-base md:ml-1">
-                  {data}
-                </span>
+                <OpenFollow
+                  title={title}
+                  data={data}
+                  disabled={title === "posts"}
+                />
               </li>
             ))}
           </ul>
