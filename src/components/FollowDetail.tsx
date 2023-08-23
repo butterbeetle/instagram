@@ -3,19 +3,25 @@
 import { useState } from "react";
 import ModalPortal from "./ui/ModalPortal";
 import PostModal from "./PostModal";
-import useMe from "@/hooks/me";
 import Avatar from "./Avatar";
+import { SimpleUser } from "@/model/user";
 
 type Props = {
+  followers: SimpleUser[];
+  following: SimpleUser[];
   title: string;
   data: number;
   disabled: boolean;
 };
-export default function FollowDetail({ title, data, disabled }: Props) {
+export default function FollowDetail({
+  followers,
+  following,
+  title,
+  data,
+  disabled,
+}: Props) {
   const [openModal, setOpenModal] = useState(false);
-  const { user: users } = useMe();
-  const info = title === "following" ? users?.following : users?.followers;
-
+  const info = title === "following" ? following : followers;
   return (
     <>
       <button

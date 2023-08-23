@@ -31,12 +31,10 @@ export async function getUserByUsername(username: string) {
       following[]->{
         username,
         image,
-        name,
       },
       followers[]->{
         username,
         image,
-        name,
       },
       "bookmarks":bookmarks[]->_id
     }`
@@ -74,7 +72,9 @@ export async function getUserForProfile(username: string) {
         "id":_id,
         "following": count(following),
         "followers": count(followers),
-        "posts":count(*[_type == "post" && author->username == "${username}"])
+        "posts":count(*[_type == "post" && author->username == "${username}"]),
+        "followingArray" : following[]->{username,name,image},
+        "followersArray" : followers[]->{username,name,image},
       }`
     )
     .then((user) => {

@@ -8,7 +8,16 @@ type Props = {
   user: ProfileUser;
 };
 export default function UserProfile({ user }: Props) {
-  const { image, username, name, followers, following, posts } = user;
+  const {
+    image,
+    username,
+    name,
+    followers,
+    followersArray,
+    following,
+    followingArray,
+    posts,
+  } = user;
   const info = [
     {
       title: "posts",
@@ -23,6 +32,7 @@ export default function UserProfile({ user }: Props) {
       data: following,
     },
   ];
+
   return (
     <section className="w-full">
       <header className="relative border-b border-neutral-200 text-center py-2 md:hidden">
@@ -52,6 +62,8 @@ export default function UserProfile({ user }: Props) {
                 key={title}
               >
                 <FollowDetail
+                  followers={followersArray}
+                  following={followingArray}
                   title={title}
                   data={data}
                   disabled={title === "posts"}

@@ -20,5 +20,9 @@ export type SearchUser = AuthUser & {
 };
 
 export type ProfileUser = SearchUser & {
+  followingArray: SimpleUser[];
+  followersArray: SimpleUser[];
   posts: number;
 };
+
+export type FollowUser = AuthUser & {};
