@@ -29,7 +29,7 @@ export default function PostDetail({ post }: Props) {
         />
       </div>
       <div className="w-full md:basis-2/5 flex flex-col">
-        <PostUserAvatar image={userImage} username={username} />
+        <PostUserAvatar image={userImage} username={username} closeIcon />
         <Image
           className="border-y md:hidden md:border-none h-auto w-full"
           src={image}
